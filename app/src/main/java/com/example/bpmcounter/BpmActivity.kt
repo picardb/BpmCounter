@@ -28,7 +28,7 @@ class BpmActivity : AppCompatActivity() {
     private fun setupViewModelObservers() {
         // BPM
         viewModel.bpm.observe(this, Observer {bpm ->
-            binding.tvBpmValue.text = bpm
+            binding.btnTap.text = bpm
         })
         // Timeout event
         viewModel.timeoutEvent.observe(this, Observer { event ->

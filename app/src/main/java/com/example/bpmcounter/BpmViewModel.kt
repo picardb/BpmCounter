@@ -6,7 +6,7 @@ import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 
 class BpmViewModel: ViewModel() {
-    private val bpmCounter = BpmCounter(5)
+    private val bpmCounter = BpmCounter(3)
 
     val bpm: LiveData<String> = Transformations.map(bpmCounter.bpm) { bpmValToString(it) }
     val timeoutEvent: LiveData<Boolean> = Transformations.map(bpmCounter.eventTimeout) { it }
@@ -24,7 +24,7 @@ class BpmViewModel: ViewModel() {
         return if (bpmValue == 0.0) {
             "..."
         } else {
-            bpmValue.format(2)
+            "${bpmValue.format(2)} BPM"
         }
     }
 
