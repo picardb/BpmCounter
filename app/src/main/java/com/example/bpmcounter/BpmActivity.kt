@@ -31,11 +31,12 @@ class BpmActivity : AppCompatActivity() {
             binding.btnTap.text = bpm
         })
         // Timeout event
-        viewModel.timeoutEvent.observe(this, Observer { event ->
+        viewModel.isCounting.observe(this, Observer { isCounting ->
             // TODO
-            if (event == true) {
-                Toast.makeText(this, "Timeout reached !", Toast.LENGTH_SHORT).show()
-                viewModel.onTimeoutComplete()
+            if (isCounting == true) {
+                binding.btnTap.setBackgroundColor(resources.getColor(R.color.purple_200))
+            } else {
+                binding.btnTap.setBackgroundColor(resources.getColor(R.color.purple_700))
             }
         })
     }

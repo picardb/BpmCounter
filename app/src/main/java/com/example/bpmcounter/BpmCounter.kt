@@ -30,14 +30,14 @@ class BpmCounter(val timeoutSeconds: Long) {
         }
     }
 
-    // Timeout event
-    private val _eventTimeout = MutableLiveData<Boolean>()
-    val eventTimeout: LiveData<Boolean>
-        get() = _eventTimeout
+    // Counting state
+    private val _isCounting = MutableLiveData<Boolean>()
+    val isCounting: LiveData<Boolean>
+        get() = _isCounting
 
     init {
         _bpm.value = 0.0
-        _eventTimeout.value = false
+        _isCounting.value = false
     }
 
     fun countBeat() {
@@ -62,16 +62,13 @@ class BpmCounter(val timeoutSeconds: Long) {
         }
 
         // Start or restart timeout
+        _isCounting.value = true
         timeoutTimer.cancel()
         timeoutTimer.start()
     }
 
-    fun onTimeoutComplete() {
-        _eventTimeout.value = false
-    }
-
     private fun timeoutReached() {
         countedBeats = 0
-        _eventTimeout.value = true
+        _isCounting.value = false
     }
 }

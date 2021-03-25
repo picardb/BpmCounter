@@ -9,15 +9,11 @@ class BpmViewModel: ViewModel() {
     private val bpmCounter = BpmCounter(3)
 
     val bpm: LiveData<String> = Transformations.map(bpmCounter.bpm) { bpmValToString(it) }
-    val timeoutEvent: LiveData<Boolean> = Transformations.map(bpmCounter.eventTimeout) { it }
+    val isCounting: LiveData<Boolean> = Transformations.map(bpmCounter.isCounting) { it }
 
     fun onTap() {
         Log.i("BpmViewModel", "Tap")
         bpmCounter.countBeat()
-    }
-
-    fun onTimeoutComplete() {
-        bpmCounter.onTimeoutComplete()
     }
 
     private fun bpmValToString(bpmValue: Double): String {
